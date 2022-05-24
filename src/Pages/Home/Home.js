@@ -4,14 +4,14 @@ import Footer from '../Shared/Footer';
 import Banner from './Banner';
 import MyLineChart from './MyLineChart';
 import Stat from './Stat';
-import RR from '../Reviews/RR';
+import ReviewCard from '../Reviews/ReviewCard';
 import Purchase from '../Purchases/Purchase'
 
 
 const Home = () => {
 
     const [pp, setPp] = useState([])
-    const [rrr, setRRR] = useState([])
+    const [reviews, setReviews] = useState([])
 
     useEffect(() => {
         fetch('products.json')
@@ -22,7 +22,7 @@ const Home = () => {
     useEffect( ()=>{
         fetch('feedback.json')
         .then(res=>res.json())
-        .then(data=>setRRR(data))
+        .then(data=>setReviews(data))
     }, [])
     return (
         <div>
@@ -46,10 +46,10 @@ const Home = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
 
                 {
-                    rrr.map(rr=><RR
-                    key={rr.id}
-                    rr={rr}
-                    ></RR>)
+                    reviews.map(review=><ReviewCard 
+                    key={review.id}
+                    review={review}
+                    ></ReviewCard >)
                 }
                 </div>
             </div>
