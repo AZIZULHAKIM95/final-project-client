@@ -35,7 +35,7 @@ const Purchase = ({ p, setTreatment }) => {
         </div>
 
         <div className="card-actions">
-          <label or="booking-modal"
+          <label htmlFor="booking-modal"
             onClick={() => setTreatment(p)}
             className="btn modal-button bg-green-600">Place Order</label>
         </div>
