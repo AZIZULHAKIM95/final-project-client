@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Review from '../Reviews/Review';
 import Footer from '../Shared/Footer';
 import Banner from './Banner';
 import MyLineChart from './MyLineChart';

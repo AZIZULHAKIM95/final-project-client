@@ -21,23 +21,23 @@ const Purchase = ({ p, setTreatment }) => {
               }
           </p> */}
         <div className='flex flex-row'>
-          <button className='btn btn-primary font-extrabold'>--</button>
+          <button className='btn bg-green-500 font-extrabold'>--</button>
           <input type="text" placeholder={minimumOrder} className="input input-bordered w-full max-w-xs">
           </input>
-          <button className='btn btn-primary'>++</button>
+          <button className='btn bg-green-500'>++</button>
         </div>
         <h2 className="card-title">Available Stock: {stock}</h2>
         <h2 className="card-title">Price/unit: ${price}</h2>
         <div className="card-actions">
           <Link to='/purchases'>
-            <button className="btn btn-primary">Book Now</button>
+            <button className="btn bg-blue-600">Book Now</button>
           </Link>
         </div>
 
         <div className="card-actions">
-          <label htmlFor="booking-modal"
+          <label or="booking-modal"
             onClick={() => setTreatment(p)}
-            className="btn modal-button btn-primary">Place Order</label>
+            className="btn modal-button bg-green-600">Place Order</label>
         </div>
 
 
