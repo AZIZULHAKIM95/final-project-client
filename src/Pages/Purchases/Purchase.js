@@ -39,8 +39,6 @@ const Purchase = ({ p, setTreatment }) => {
             onClick={() => setTreatment(p)}
             className="btn modal-button bg-green-600">Place Order</label>
         </div>
-
-
       </div>
     </div>
   );
