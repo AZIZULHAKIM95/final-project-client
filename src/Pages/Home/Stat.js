@@ -9,21 +9,21 @@ const Stat = () => {
 
           <div>
             <div className="stat">
-              <div className="stat-title">Downloads</div>
+              <div className="stat-title">ORDERS</div>
               <div className="text-primary stat-value">31K</div>
               <div className="stat-desc">Jan 1st - Feb 1st</div>
             </div>
 
             <div className="stat">
-              <div className="stat-title">New Users</div>
+              <div className="stat-title">NEW USERS</div>
               <div className="stat-value text-primary">4,200</div>
               <div className="stat-desc">↗︎ 400 (22%)</div>
             </div>
 
             <div className="stat">
-              <div className="stat-title">New Registers</div>
+              <div className="stat-title">ORDER DELIVERY</div>
               <div className="stat-value text-primary">1,200</div>
-              <div className="stat-desc">↘︎ 90 (14%)</div>
+              <div className="stat-desc">↗︎ 90 (84%)</div>
             </div>
           </div>
         </div>

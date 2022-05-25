@@ -43,7 +43,7 @@ const MyLineChart = () => {
     return (
         <div className='text-center items-center my-28 '>
            <div >
-               <h3 className='text-emerald-500 text-4xl font-bold uppercase'>Sell In Month</h3>
+               <h3 className='text-emerald-500 text-4xl font-bold uppercase'>Sells In Month</h3>
             </div>
             <br />
             <LineChart className='items-center mx-auto' width={560} height={400} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>

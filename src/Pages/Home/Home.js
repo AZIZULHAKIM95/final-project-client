@@ -3,6 +3,7 @@ import Footer from '../Shared/Footer';
 import Banner from './Banner';
 import MyLineChart from './MyLineChart';
 import Stat from './Stat';
+import Qstn from '../Qstn/Qstn';
 import ReviewCard from '../Reviews/ReviewCard';
 import Purchase from '../Purchases/Purchase'
 import useProducts from '../../hooks/useProducts';
@@ -61,6 +62,8 @@ const Home = () => {
             <MyLineChart></MyLineChart>
             <br />
             <Stat></Stat>
+            <br />
+            <Qstn></Qstn>
             <br />
             <br />
             <Footer></Footer>
