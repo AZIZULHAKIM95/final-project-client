@@ -15,18 +15,18 @@ const Home = () => {
     const [products, setproducts] = useState([]);
     const [reviews, setReviews] = useState([]);
 
-    const url= "http://192.168.0.113:5000";
+    const url = "http://192.168.0.114:5000";
 
     useEffect(() => {
-        axios.get(url+"/products")
-        .then(res=>{console.log(res.data)
-            setproducts(res.data.data);
-        });
+        axios.get(url + "/products")
+            .then(res => {
+                setproducts(res.data.data);
+            });
 
-        axios.get(url+"/reviews")
-        .then(res=>{console.log(res.data)
-            setReviews(res.data.data);
-        });
+        axios.get(url + "/reviews")
+            .then(res => {
+                setReviews(res.data.data);
+            });
 
     }, [])
     return (
@@ -50,12 +50,12 @@ const Home = () => {
                 <h4 className='text-4xl font-bold text-secondary text-center my-28'>OUR CLIENT REVIEWS</h4>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
 
-                {
-                    reviews.map(review=><ReviewCard 
-                    key={review.id}
-                    review={review}
-                    ></ReviewCard >)
-                }
+                    {
+                        reviews.map(review => <ReviewCard
+                            key={review._id}
+                            review={review}
+                        ></ReviewCard >)
+                    }
                 </div>
             </div>
             <br />

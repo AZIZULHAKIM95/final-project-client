@@ -4,9 +4,13 @@ const useToken = user =>{
     const [token, setToken] = useState('');
     useEffect( () =>{
         const email = user?.user?.email;
+        
         const currentUser = {email: email};
+
+        const url = "http://192.168.0.114:5000";
+
         if(email){
-            fetch(`http://localhost:5000/user/${email}`, {
+            fetch(url+`/user/${email}`, {
                 method:'PUT',
                 headers: {
                     'content-type': 'application/json'

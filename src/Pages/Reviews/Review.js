@@ -4,7 +4,7 @@ import ReviewCard from './ReviewCard';
 const Review = () => {
     const [reviews, setReviews] = useState([])
     useEffect( ()=>{
-        const url = process.env.REACT_APP_API_URL;
+        const url = "http://192.168.0.114:5000";
         fetch(url+'/reviews')
             .then(res => res.json())
             .then(data => setReviews(data.data))
