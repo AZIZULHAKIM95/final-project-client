@@ -1,33 +1,40 @@
+import axios from 'axios';
 import React,{useEffect, useState} from 'react';
 import BookingModal from './BookingModal';
 import Purchase from './Purchase';
 
 const Purchases = () => {
-    const [pp, setPp] = useState([])
-    const [treatment, setTreatment] = useState(null);
+    const [products, setproducts] = useState([])
+    const [placeorder, setPlaceorder] = useState(null);
+    const [reload,setReload] = useState(false);
+    const url= "http://192.168.0.113:5000";
 
-    useEffect( ()=>{
-        fetch('products.json')
-        .then(res=>res.json())
-        .then(data=>setPp(data))
-    }, [])
+    useEffect(() => {
+        axios.get(url+"/products")
+        .then(res=>{console.log(res.data)
+            setproducts(res.data.data);
+        })
+    }, [reload])
     
     return (
         <div>
+
             <h4 className='text-4xl font-bold text-secondary text-center my-12'>ALL OUR PRODUCT</h4>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
 
                 {
-                    pp.map(p=><Purchase
+                    products.map(p=><Purchase
                     key={p.id}
                     p={p}
-                    setTreatment={setTreatment}
+                    setPlaceorder={setPlaceorder}
                     ></Purchase>)
                 }
             </div>
-            {treatment && <BookingModal 
-            treatment={treatment}
-            setTreatment={setTreatment}
+            {placeorder && <BookingModal 
+            placeorder={placeorder}
+            setPlaceorder={setPlaceorder}
+            setReload={setReload}
+            reload={reload}
             ></BookingModal>}
         </div>
     );

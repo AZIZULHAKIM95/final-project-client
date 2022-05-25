@@ -15,7 +15,6 @@ const MyOrder = () => {
     }, [user])
     return (
         <div>
-        <h2></h2>
         <h2 className='text-2xl font-bold text-emerald-900 my-2'>My Order: {ppp.length}</h2>
         <div class="overflow-x-auto">
             <table class="table w-full">

@@ -3,9 +3,10 @@ import { useEffect, useState } from "react"
 const useReview = () => {
     const [reviews, setReviews] = useState([])
     useEffect(() => {
-        fetch('feedback.json')
+        const url = process.env.REACT_APP_API_URL;
+        fetch(url+'/reviews')
             .then(res => res.json())
-            .then(data => setReviews(data))
+            .then(data => setReviews(data.data))
     }, [])
     return [reviews, setReviews]
 }

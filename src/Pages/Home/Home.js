@@ -5,23 +5,28 @@ import MyLineChart from './MyLineChart';
 import Stat from './Stat';
 import ReviewCard from '../Reviews/ReviewCard';
 import Purchase from '../Purchases/Purchase'
+import useProducts from '../../hooks/useProducts';
+import axios from 'axios';
 
 
 const Home = () => {
 
-    const [pp, setPp] = useState([])
-    const [reviews, setReviews] = useState([])
+    const [products, setproducts] = useState([]);
+    const [reviews, setReviews] = useState([]);
+
+    const url= "http://192.168.0.113:5000";
 
     useEffect(() => {
-        fetch('products.json')
-            .then(res => res.json())
-            .then(data => setPp(data))
-    }, [])
+        axios.get(url+"/products")
+        .then(res=>{console.log(res.data)
+            setproducts(res.data.data);
+        });
 
-    useEffect( ()=>{
-        fetch('feedback.json')
-        .then(res=>res.json())
-        .then(data=>setReviews(data))
+        axios.get(url+"/reviews")
+        .then(res=>{console.log(res.data)
+            setReviews(res.data.data);
+        });
+
     }, [])
     return (
         <div>
@@ -32,7 +37,7 @@ const Home = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
 
                     {
-                        pp.slice(-6).map(p => <Purchase
+                        products.slice(-6).map(p => <Purchase
                             key={p.id}
                             p={p}
                         ></Purchase>)

@@ -3,12 +3,11 @@ import ReviewCard from './ReviewCard';
 
 const Review = () => {
     const [reviews, setReviews] = useState([])
-    const [treatment, setTreatment] = useState(null);
-
     useEffect( ()=>{
-        fetch('feedback.json')
-        .then(res=>res.json())
-        .then(data=>setReviews(data))
+        const url = process.env.REACT_APP_API_URL;
+        fetch(url+'/reviews')
+            .then(res => res.json())
+            .then(data => setReviews(data.data))
     }, [])
     
     return (
@@ -18,9 +17,8 @@ const Review = () => {
 
                 {
                     reviews.map(review=><ReviewCard 
-                    key={review.id}
+                    key={review._id}
                     review={review}
-                    setTreatment={setTreatment}
                     ></ReviewCard >)
                 }
             </div>
