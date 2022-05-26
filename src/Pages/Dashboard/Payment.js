@@ -1,45 +1,48 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Loading from '../Shared/Loading';
 import CheckoutForm from './CheckoutForm';
 
-const stripePromise = loadStripe('pk_test_51KzgdMJVa6zVY99CaGts94G8qqJirQWPMAET7VBqrec0wWSxhuuRtgQNPA3SuwzjQKOv6QWwjgMWEfZ83N1qLNUU00IX1ciL6e');
+const stripePromise = loadStripe('pk_test_51K1yQAFDDkrJ7nh05DjfmIdAQsCq2SCyCveJLNpzuB2PKzAryl8Sl3ZezDxrmZ5CZF02BzR8Jyz4bUZ6xqakXN8W00UQSI3tmP');
 
 const Payment = () => {
     const { id } = useParams();
-    const url = `https://secret-dusk-46242.herokuapp.com/booking/${id}`;
+    let url = "http://192.168.0.116:5000";
+    const [order, setOrder] = useState({});
+    url += `/order/${id}`;
 
-    const { data: appointment, isLoading } = useQuery(['booking', id], () => fetch(url, {
-        method: 'GET',
-        headers: {
-            'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    }).then(res => res.json()));
-
-    if (isLoading) {
+    useEffect(()=>{
+        axios.get(url,{
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res=>setOrder(res.data));
+    },[]);
+    
+    console.log(order);
+    
+    if (!order.user) {
         return <Loading></Loading>
     }
 
     return (
-        <div>
+        <div className='flex justify-center'>
             <div class="card w-50 max-w-md bg-base-100 shadow-xl my-12">
                 <div class="card-body">
-                    <p className="text-success font-bold">Hello, {appointment.patientName}</p>
-                    <h2 class="card-title">Please Pay for {appointment.treatment}</h2>
-                    <p>Your Appointment: <span className='text-orange-700'>{appointment.date}</span> at {appointment.slot}</p>
-                    <p>Please pay: ${appointment.price}</p>
-                </div>
-            </div>
-            <div class="card flex-shrink-0 w-50 max-w-md shadow-2xl bg-base-100">
-                <div class="card-body">
+                    <p className="text-success font-bold">Hello, {order.user}</p>
+                    <h2 class="card-title">Please Pay for {order.product.name}</h2>
+                    <p>Your Quantity: <span className='text-orange-700'>{order.quantity}</span></p>
+                    <p className='mb-5'>Please pay: ${order.product.price*order.quantity}</p>
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm appointment={appointment} />
+                        <CheckoutForm order={order} />
                     </Elements>
                 </div>
             </div>
+            
         </div>
     );
 };

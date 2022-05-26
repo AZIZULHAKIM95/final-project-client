@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-const CheckoutForm = ({ appointment }) => {
+const CheckoutForm = ({ order }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('');
@@ -10,10 +10,14 @@ const CheckoutForm = ({ appointment }) => {
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState('');
 
-    const { _id, price, patient, patientName } = appointment;
+    const _id = order._id;
+    const price = order.quantity * order.product.price;
+    const user = order.user;
+
+    const url = "http://192.168.0.116:5000"
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch(url+'/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -23,6 +27,7 @@ const CheckoutForm = ({ appointment }) => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (data?.clientSecret) {
                     setClientSecret(data.clientSecret);
                 }
@@ -30,6 +35,7 @@ const CheckoutForm = ({ appointment }) => {
 
     }, [price])
 
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -58,8 +64,8 @@ const CheckoutForm = ({ appointment }) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: patientName,
-                        email: patient
+                        name: user,
+                        email: user
                     },
                 },
             },
@@ -77,10 +83,11 @@ const CheckoutForm = ({ appointment }) => {
             
             //store payment on database
             const payment = {
-                appointment: _id,
+                order: _id,
                 transactionId: paymentIntent.id
             }
-            fetch(`http://localhost:5000//booking/${_id}`, {
+
+            fetch(`${url}/order/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

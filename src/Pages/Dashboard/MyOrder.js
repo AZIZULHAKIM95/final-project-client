@@ -75,14 +75,14 @@ const MyOrder = () => {
                         {
                             ppp.map((a, index) => <tr key={a._id}>
                                 <th>{index + 1}</th>
-                                <td>{a.name}</td>
+                                <td>{a.product.name}</td>
                                 <td>{a.quantity}</td>
-                                <td>{a.quantity * a.price}</td>
+                                <td>{a.quantity * a.product.price}</td>
                                 <td>
                                     {!a.paid && <Link to={`/dashboard/payment/${a._id}`}><button className='btn btn-xs bg-emerald-500'>pay</button></Link>}
                                     {a.paid && <div>
                                         <p><span className='text-success'>Paid</span></p>
-                                        <p>Transaction id: <span className='text-success'>{a.paid}</span></p>
+                                        Transaction id:<br/> <p><span className='text-success'>{a.transactionId}</span></p>
                                     </div>}
                                 </td>
                                 <td>

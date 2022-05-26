@@ -7,8 +7,8 @@ const axios = require("axios");
 
 
 const BookingModal = ({ placeorder, setPlaceorder, reload, setReload }) => {
-  const { _id, name, quantity } = placeorder
-  const [user, loading, error] = useAuthState(auth);
+  const {name} = placeorder
+  const [user] = useAuthState(auth);
   const url = "http://192.168.0.116:5000";
 
   const handleOrder = e => {
@@ -17,10 +17,7 @@ const BookingModal = ({ placeorder, setPlaceorder, reload, setReload }) => {
       user: user.email,
       address: e.target.children.address.value,
       phone: e.target.children.phone.value,
-      product: {
-        id: _id,
-        quantity
-      }
+      product: placeorder
     }
 
     axios.post(url + "/placeorder", data)
