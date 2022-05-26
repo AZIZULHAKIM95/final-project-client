@@ -11,7 +11,7 @@ const AddAReview = () => {
             name: e.target.children.name.value,
             comment: e.target.children.comment.value
         }
-        const url = process.env.REACT_APP_API_URL;
+        const url = "http://192.168.0.116:5000";
         axios.post(url+"/reviews",review)
         .then(res=>{
             const {success} = res.data

@@ -41,13 +41,13 @@ const Dashboard = () => {
                     }
                     {
                         !admin && (<>
-                            <li><Link className='text-emerald-700 font-medium' to="/dashboard/myorder">MY ORDEDER</Link></li>
+                            <li><Link className='text-emerald-700 font-medium' to="/dashboard/myorder">MY ORDER</Link></li>
                             <li><Link className='text-emerald-700 font-medium' to="/dashboard/addaReview">ADD A REVIEW</Link></li>
 
                         </>)
                     }
 
-                    <li><Link className='text-emerald-700 font-medium' to="/dashboard/myProfile">My PROFILE</Link></li>
+                    <li><Link className='text-emerald-700 font-medium' to="/dashboard/myProfile">MY PROFILE</Link></li>
                 </ul>
             </div>
         </div>
