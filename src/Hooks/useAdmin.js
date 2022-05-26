@@ -6,7 +6,9 @@ const useAdmin = user => {
     useEffect( () =>{
         const email = user?.email;
         if(email){
-            fetch(`http://localhost:5000/admin/${email}`, {
+            const url = "http://192.168.0.116:5000";
+
+            fetch(`${url}/user/admin/${email}`, {
                 method:'GET',
                 headers: {
                     'content-type': 'application/json',

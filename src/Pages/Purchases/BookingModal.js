@@ -9,7 +9,7 @@ const axios = require("axios");
 const BookingModal = ({ placeorder, setPlaceorder, reload, setReload }) => {
   const { _id, name, quantity } = placeorder
   const [user, loading, error] = useAuthState(auth);
-  const url = "http://192.168.0.114:5000";
+  const url = "http://192.168.0.116:5000";
 
   const handleOrder = e => {
     e.preventDefault();

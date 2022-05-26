@@ -11,8 +11,8 @@ const MyOrder = () => {
 
     useEffect(() => {
         if (user) {
-            const url = "http://192.168.0.114:5000"
-            fetch(url+`/orders/${user.email}`, {
+            const url = "http://192.168.0.116:5000"
+            fetch(url + `/orders/${user.email}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -45,6 +45,7 @@ const MyOrder = () => {
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Status</th>
+                            <th>Action</th>
 
                         </tr>
                     </thead>
@@ -54,11 +55,18 @@ const MyOrder = () => {
                                 <th>{index + 1}</th>
                                 <td>{a.name}</td>
                                 <td>{a.quantity}</td>
-                                <td>{a.quantity* a.price}</td>
+                                <td>{a.quantity * a.price}</td>
                                 <td>
-                                    {(a.price && !a.paid) && <Link to={`/dashboard/payment/${a._id}`}><button className='btn btn-xs btn-success'>pay</button></Link>}
+                                    {(a.price && !a.paid) && <Link to={`/dashboard/payment/${a._id}`}><button className='btn btn-xs bg-emerald-500'>pay</button></Link>}
                                     {(a.price && a.paid) && <div>
                                         <p><span className='text-success'>Paid</span></p>
+                                        <p>Transaction id: <span className='text-success'>{a.paid}</span></p>
+                                    </div>}
+                                </td>
+                                <td>
+                                    {(a.price && !a.paid) && <Link to={`/dashboard/payment/${a._id}`}><button className='btn btn-xs bg-red-500'>cancel</button></Link>}
+                                    {(a.price && a.paid) && <div>
+                                        <p><span className='text-success'>Delete</span></p>
                                         <p>Transaction id: <span className='text-success'>{a.paid}</span></p>
                                     </div>}
                                 </td>

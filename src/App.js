@@ -12,6 +12,7 @@ import MyOrder from './Pages/Dashboard/MyOrder';
 import MyPortfolio from './Pages/MyPortfolio/MyPortfolio';
 import NotFound from './Pages/Shared/NotFound';
 import RequireAuth from './Pages/Login/RequireAuth';
+import RequireAdmin from './Pages/Login/RequireAdmin';
 import AddAReview from './Pages/Dashboard/AddAReview';
 import MyProfile from './Pages/Dashboard/MyProfile';
 import ManageAllProduct from './Pages/Dashboard/ManageAllProduct';
@@ -34,13 +35,13 @@ function App() {
         }></Route>
         <Route path='/reviews' element={<Reviews/>}></Route>
         <Route path='/dashboard' element={<RequireAuth><Dashboard/></RequireAuth>}>
-           <Route index element={<MyOrder></MyOrder>}></Route>
+           <Route path="myorder" element={<MyOrder></MyOrder>}></Route>
            <Route path="addaReview" element={<AddAReview></AddAReview>}></Route>
            <Route path="myProfile" element={<MyProfile></MyProfile>}></Route>
-           <Route path="addProduct" element={<AddProduct></AddProduct>}></Route>
+           <Route path="addProduct" element={<RequireAdmin><AddProduct></AddProduct></RequireAdmin>}></Route>
            <Route path="payment/:id" element={<Payment></Payment>}></Route>
-           <Route path="makeAdmin" element={<MakeAdmin></MakeAdmin>}></Route>
-           <Route path="manageProduct" element={<ManageAllProduct></ManageAllProduct>}></Route>
+           <Route path="makeAdmin" element={<RequireAdmin><MakeAdmin></MakeAdmin></RequireAdmin>}></Route>
+           <Route path="manageProduct" element={<RequireAdmin><ManageAllProduct></ManageAllProduct></RequireAdmin>}></Route>
         </Route>
         <Route path='/myportfolio' element={<MyPortfolio/>}></Route>
         <Route path='/blogs' element={<Blogs/>}></Route>
@@ -52,12 +53,10 @@ function App() {
       </Routes>
       <ToastContainer 
         position="top-right"
-        autoClose={5000} 
+        autoClose={3000} 
         hideProgressBar={false} 
         newestOnTop={false} 
         closeOnClick rtl={false} 
-        pauseOnFocusLoss 
-        draggable 
         pauseOnHover />
 
     </div>

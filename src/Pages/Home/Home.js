@@ -15,7 +15,7 @@ const Home = () => {
     const [products, setproducts] = useState([]);
     const [reviews, setReviews] = useState([]);
 
-    const url = "http://192.168.0.114:5000";
+    const url = "http://192.168.0.116:5000";
 
     useEffect(() => {
         axios.get(url + "/products")
@@ -30,7 +30,7 @@ const Home = () => {
 
     }, [])
     return (
-        <div>
+        <div className=''>
             <Banner></Banner>
             <br />
             <div>

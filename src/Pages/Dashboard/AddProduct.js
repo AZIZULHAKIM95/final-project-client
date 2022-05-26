@@ -21,32 +21,47 @@ const AddProduct = () => {
             price: e.target.children.price.value,
         }
         console.log(product);
-        const url = "http://192.168.0.114:5000";
-        fetch(url + `/products`, {
-            method: 'POST',
-            headers: {
+
+        if (product.name && product.img && product.description && product.minimumOrder &&
+            product.stock && product.price) {
+
+            const url = "http://192.168.0.116:5000";
+
+            axios.post(url + `/products`, product, {
+                headers: {
+                'Content-Type': 'application/json',
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body: JSON.stringify(product)
-        })
-            .then(res => {
-                // if (res.status === 401 || res.status === 403) {
-                //     signOut(auth);
-                //     localStorage.removeItem('accessToken');
-                //     Navigate('/');
-                // }
-                return res.json()
-            })
-            .then(data => {
-                // const { success } = data;
-                // if (success) {
-                //     toast.success("Review Added Successfully");
-                // }
-                // else {
-                //     toast.error("Couldn't add review");
-                // }
-                console.log(data);
-            });
+                }
+              }
+            )
+            // fetch(url + `/products`, {
+            //     method: 'POST',
+            //     ,
+            //     body: JSON.stringify(product)
+            // })
+                // .then(res => {
+                //     if (res.status === 401 || res.status === 403) {
+                //         toast.error("Admin permission needed to add product");
+                //         signOut(auth);
+                //         localStorage.removeItem('accessToken');
+                //         Navigate('/');
+                //     }
+                //     return res.json()
+                // })
+                .then(data => {
+                    const { success } = data.data;
+                    if (success) {
+                        toast.success("Product Added Successfully");
+                    }
+                    else {
+                        toast.error("Couldn't add Your product");
+                    }
+                    console.log(data);
+                });
+        }
+        else{
+            toast.error("Please enter valid product!");
+        }
 
     }
 
@@ -57,8 +72,8 @@ const AddProduct = () => {
                 className='grid grid-cols-1 gap-3 justify-items-center mt-2'>
                 <input type="text" name="name" placeholder="Product Name" className="input input-bordered w-full max-w-xs" />
                 <input type="text" name="des" placeholder="Product Description" className="input input-bordered w-full max-w-xs" />
-                <input type="text" name="minodr" placeholder="Minimum Order" className="input input-bordered w-full max-w-xs" />
-                <input type="text" name="stock" placeholder="Available Stock" className="input input-bordered w-full max-w-xs" />
+                <input type="number" name="minodr" placeholder="Minimum Order" className="input input-bordered w-full max-w-xs" />
+                <input type="number" name="stock" placeholder="Available Stock" className="input input-bordered w-full max-w-xs" />
                 <input type="text" name="price" placeholder="Per Unit Price" className="input input-bordered w-full max-w-xs" />
                 <input type="text" name="img" placeholder="Image Link" className="input input-bordered w-full max-w-xs" />
                 <input type="submit" value="Upload" className="btn btn-secondary w-full max-w-xs" />
