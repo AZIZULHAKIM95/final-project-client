@@ -1,27 +1,22 @@
 [
     {
-        "id": "1",
         "location": "California",
         "name": "Mathew Buzzi",
         "comment": "Amazing services and updagradability. Very Trusted place."
     },
     {
-        "id": "2",
         "location": "Michigan",
         "name": "Edward G.Dorman",
         "comment": "Ah, yes. This person is so friendly and a good services."
     },
     {
-        "id": "3",
         "location": "Texas",
         "name": "Kennath F.Smith",
         "comment": "His services is awesome. And very reasonable price."
     },
     {
-        "id": "4",
         "location": "Alaska",
         "name": "Will Jonas",
         "comment": "There service are much awesome & very very fast. This is hilariously chunky."
     }
-    
 ]

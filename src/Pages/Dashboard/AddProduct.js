@@ -16,9 +16,9 @@ const AddProduct = () => {
             name: e.target.children.name.value,
             img: e.target.children.img.value,
             description: e.target.children.des.value,
-            minimumOrder: e.target.children.minodr.value,
-            stock: e.target.children.stock.value,
-            price: e.target.children.price.value,
+            minimumOrder: parseInt(e.target.children.minodr.value),
+            stock: parseInt(e.target.children.stock.value),
+            price: parseInt(e.target.children.price.value)
         }
         console.log(product);
 
@@ -52,6 +52,10 @@ const AddProduct = () => {
                     const { success } = data.data;
                     if (success) {
                         toast.success("Product Added Successfully");
+
+                        e.target.children.forEach(c=>{
+                            c.value = "";
+                        })
                     }
                     else {
                         toast.error("Couldn't add Your product");
