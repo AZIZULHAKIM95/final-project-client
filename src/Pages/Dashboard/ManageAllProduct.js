@@ -11,7 +11,7 @@ const ManageAllProduct = () => {
     const [update, setUpdate] = useState(false);
 
 
-    const url = "http://192.168.0.116:5000";
+    const url = process.env.REACT_APP_API_URL;
 
 
     useEffect(() => {

@@ -12,7 +12,7 @@ const MakeAdmin = () => {
 
     const [user] = useAuthState(auth);
     const navigate = useNavigate()
-    const url = "http://192.168.0.116:5000"
+    const url = process.env.REACT_APP_API_URL
 
     useEffect(() => {
         if (user) {
@@ -25,11 +25,11 @@ const MakeAdmin = () => {
             ).then(res => setAllUser(res.data));
         }
     }
-        , [user,update]);
+        , [user, update]);
 
     const changeRole = (chuser) => {
         const data = { email: chuser.email }
-        if(chuser.email===user.email){
+        if (chuser.email === user.email) {
             return toast.error("Can't change own role!!");
         }
         if (chuser.role) {
@@ -38,14 +38,14 @@ const MakeAdmin = () => {
         else {
             data.role = "admin"
         }
-        axios.put(url + `/user/admin/${chuser.email}`,data,{
+        axios.put(url + `/user/admin/${chuser.email}`, data, {
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`
             }
-        }).then(res=>{
-            const {data} = res;
-            if(data.modifiedCount){
+        }).then(res => {
+            const { data } = res;
+            if (data.modifiedCount) {
                 setUpdate(!update);
                 return toast.success("User role changed");
             }
@@ -81,14 +81,14 @@ const MakeAdmin = () => {
                                     <td>
                                         {(user.role === "admin") ? <button className='btn btn-xs btn-danger' onClick={() => changeRole(user)}>Remove Admin</button> :
                                             <button className='btn btn-xs btn-success' onClick={() => changeRole(user)} > Make Admin</button>}
-                                </td>
+                                    </td>
                                 </tr>))
                         }
 
 
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
         </div >
     );
 };

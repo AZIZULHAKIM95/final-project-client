@@ -7,7 +7,7 @@ const useToken = user => {
 
         const currentUser = { email: email };
 
-        const url = "http://192.168.0.116:5000";
+        const url = process.env.REACT_APP_API_URL;
 
         if (email) {
             fetch(url + `/user/${email}`, {

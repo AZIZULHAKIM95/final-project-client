@@ -11,20 +11,20 @@ const stripePromise = loadStripe('pk_test_51K1yQAFDDkrJ7nh05DjfmIdAQsCq2SCyCveJL
 
 const Payment = () => {
     const { id } = useParams();
-    let url = "http://192.168.0.116:5000";
+    let url = process.env.REACT_APP_API_URL;
     const [order, setOrder] = useState({});
     url += `/order/${id}`;
 
-    useEffect(()=>{
-        axios.get(url,{
+    useEffect(() => {
+        axios.get(url, {
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`
             }
-        }).then(res=>setOrder(res.data));
-    },[]);
-    
+        }).then(res => setOrder(res.data));
+    }, []);
+
     console.log(order);
-    
+
     if (!order.user) {
         return <Loading></Loading>
     }
@@ -36,13 +36,13 @@ const Payment = () => {
                     <p className="text-success font-bold">Hello, {order.user}</p>
                     <h2 class="card-title">Please Pay for {order.product.name}</h2>
                     <p>Your Quantity: <span className='text-orange-700'>{order.quantity}</span></p>
-                    <p className='mb-5'>Please pay: ${order.product.price*order.quantity}</p>
+                    <p className='mb-5'>Please pay: ${order.product.price * order.quantity}</p>
                     <Elements stripe={stripePromise}>
                         <CheckoutForm order={order} />
                     </Elements>
                 </div>
             </div>
-            
+
         </div>
     );
 };

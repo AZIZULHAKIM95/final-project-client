@@ -8,22 +8,22 @@ import { toast } from 'react-toastify';
 
 const MyOrder = () => {
     const [ppp, setPPP] = useState([]);
-    const [update,setUpdate] = useState(false);
+    const [update, setUpdate] = useState(false);
     const [user] = useAuthState(auth);
     const navigate = useNavigate()
-    const url = "http://192.168.0.116:5000"
+    const url = process.env.REACT_APP_API_URL
 
-    const updateOrder = (id,type)=>{
+    const updateOrder = (id, type) => {
 
-        axios.delete(url + `/order/${id}/${type}`,{
+        axios.delete(url + `/order/${id}/${type}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': `Bearer ${localStorage.getItem('accessToken')}`
             }
         }
         ).then(res => {
-            const {success} = res.data;
-            if(success){
+            const { success } = res.data;
+            if (success) {
                 setUpdate(!update);
                 return toast.success(`Order ${type}ed`)
             }
@@ -54,7 +54,7 @@ const MyOrder = () => {
                 });
         }
     },
-        [user,update])
+        [user, update])
     return (
         <div>
             <h2 className='text-2xl font-bold text-emerald-900 my-2'>My Order: {ppp.length}</h2>
@@ -82,16 +82,16 @@ const MyOrder = () => {
                                     {!a.paid && <Link to={`/dashboard/payment/${a._id}`}><button className='btn btn-xs bg-emerald-500'>pay</button></Link>}
                                     {a.paid && <div>
                                         <p><span className='text-success'>Paid</span></p>
-                                        Transaction id:<br/> <p><span className='text-success'>{a.transactionId}</span></p>
+                                        Transaction id:<br /> <p><span className='text-success'>{a.transactionId}</span></p>
                                     </div>}
                                 </td>
                                 <td>
-                                    
-                                        {!a.paid && <button onClick={()=>updateOrder(a._id,'cancel')} className='btn btn-xs bg-red-500'>cancel</button>}
-                                        {a.paid &&
-                                            <button onClick={()=>updateOrder(a._id,'delete')} className='btn btn-xs bg-red-500'>Delete</button>
-                                        }
-                                    
+
+                                    {!a.paid && <button onClick={() => updateOrder(a._id, 'cancel')} className='btn btn-xs bg-red-500'>cancel</button>}
+                                    {a.paid &&
+                                        <button onClick={() => updateOrder(a._id, 'delete')} className='btn btn-xs bg-red-500'>Delete</button>
+                                    }
+
                                 </td>
                             </tr>)
                         }

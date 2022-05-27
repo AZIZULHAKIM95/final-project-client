@@ -15,7 +15,7 @@ const Home = () => {
     const [products, setproducts] = useState([]);
     const [reviews, setReviews] = useState([]);
 
-    const url = "http://192.168.0.116:5000";
+    const url = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         axios.get(url + "/products")

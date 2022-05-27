@@ -7,15 +7,15 @@ const useAdmin = user => {
     useEffect(() => {
         const email = user?.email;
         if (email) {
-            const url = "http://192.168.0.116:5000";
+            const url = process.env.REACT_APP_API_URL;
 
-            axios.get(`${url}/user/admin/${email}`,{
+            axios.get(`${url}/user/admin/${email}`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }
-            }).then(res=>{
-                const {admin} = res.data;
+            }).then(res => {
+                const { admin } = res.data;
                 setAdmin(admin);
                 setAdminLoading(false);
 
@@ -23,7 +23,7 @@ const useAdmin = user => {
 
             // fetch(`${url}/user/admin/${email}`, {
             //     method: 'GET',
-                
+
             // })
             //     .then(res => {
             //         if (res.status === 401 || res.status === 403) {

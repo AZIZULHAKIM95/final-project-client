@@ -14,10 +14,10 @@ const CheckoutForm = ({ order }) => {
     const price = order.quantity * order.product.price;
     const user = order.user;
 
-    const url = "http://192.168.0.116:5000"
+    const url = process.env.REACT_APP_API_URL
 
     useEffect(() => {
-        fetch(url+'/create-payment-intent', {
+        fetch(url + '/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -35,7 +35,7 @@ const CheckoutForm = ({ order }) => {
 
     }, [price])
 
-    
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -80,7 +80,7 @@ const CheckoutForm = ({ order }) => {
             setTransactionId(paymentIntent.id);
             console.log(paymentIntent);
             setSuccess('Congrats! Your payment is completed.')
-            
+
             //store payment on database
             const payment = {
                 order: _id,
@@ -94,11 +94,11 @@ const CheckoutForm = ({ order }) => {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 },
                 body: JSON.stringify(payment)
-            }).then(res=>res.json())
-            .then(data => {
-                setProcessing(false);
-                console.log(data);
-            })
+            }).then(res => res.json())
+                .then(data => {
+                    setProcessing(false);
+                    console.log(data);
+                })
 
         }
     }

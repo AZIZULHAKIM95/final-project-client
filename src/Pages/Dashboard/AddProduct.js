@@ -25,20 +25,20 @@ const AddProduct = () => {
         if (product.name && product.img && product.description && product.minimumOrder &&
             product.stock && product.price) {
 
-            const url = "http://192.168.0.116:5000";
+            const url = process.env.REACT_APP_API_URL;
 
             axios.post(url + `/products`, product, {
                 headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
-              }
+            }
             )
-            // fetch(url + `/products`, {
-            //     method: 'POST',
-            //     ,
-            //     body: JSON.stringify(product)
-            // })
+                // fetch(url + `/products`, {
+                //     method: 'POST',
+                //     ,
+                //     body: JSON.stringify(product)
+                // })
                 // .then(res => {
                 //     if (res.status === 401 || res.status === 403) {
                 //         toast.error("Admin permission needed to add product");
@@ -53,7 +53,7 @@ const AddProduct = () => {
                     if (success) {
                         toast.success("Product Added Successfully");
 
-                        e.target.children.forEach(c=>{
+                        e.target.children.forEach(c => {
                             c.value = "";
                         })
                     }
@@ -63,7 +63,7 @@ const AddProduct = () => {
                     console.log(data);
                 });
         }
-        else{
+        else {
             toast.error("Please enter valid product!");
         }
 
